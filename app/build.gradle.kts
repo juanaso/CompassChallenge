@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.juanasoco.compasschallenge.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -63,6 +63,15 @@ dependencies {
     implementation(libs.squareup.converter)
     implementation(libs.squareup.okhttp)
     implementation(libs.coil)
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+//    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    // Room
+    implementation ("androidx.room:room-runtime:2.4.0-alpha03")
+    annotationProcessor ("androidx.room:room-compiler:2.4.0-alpha03")
+    ksp ("androidx.room:room-compiler:2.4.0-alpha03")
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation( "androidx.room:room-ktx:2.3.0")
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
