@@ -39,7 +39,7 @@ import org.junit.Test
         @Test
         fun testGetEvery10thCharacter() = runTest  {
             whenever(compassRepository.getContent()).thenReturn(flowOf(Result.success(mockedString)))
-            viewModel = CompassChallengeViewModel(compassRepository)
+            viewModel = CompassChallengeViewModel(compassRepository,testDispatcher)
             viewModel.fetchData()
             advanceUntilIdle()
             assertThat(viewModel.every10thChar.value.get(0)).isEqualTo('9')
@@ -48,7 +48,7 @@ import org.junit.Test
         @Test
         fun testGetEvery10thCharacterWithBlankSpace() = runTest  {
             whenever(compassRepository.getContent()).thenReturn(flowOf(Result.success(mockedString2)))
-            viewModel = CompassChallengeViewModel(compassRepository)
+            viewModel = CompassChallengeViewModel(compassRepository,testDispatcher)
             viewModel.fetchData()
             advanceUntilIdle()
             assertThat(viewModel.every10thChar.value.get(0)).isEqualTo('0')
@@ -59,7 +59,7 @@ import org.junit.Test
     fun testCountWords() = runTest {
         // Arrange
         whenever(compassRepository.getContent()).thenReturn(flowOf(Result.success(mockedString)))
-        viewModel = CompassChallengeViewModel(compassRepository)
+        viewModel = CompassChallengeViewModel(compassRepository,testDispatcher)
 
         // Act
         viewModel.fetchData()

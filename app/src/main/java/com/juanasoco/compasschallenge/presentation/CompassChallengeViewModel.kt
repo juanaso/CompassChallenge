@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juanasoco.compasschallenge.domain.repository.CompassRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CompassChallengeViewModel @Inject constructor(
-    private val compassRepository: CompassRepository
+    private val compassRepository: CompassRepository,
+    private val dispatcherIo:CoroutineDispatcher
 ): ViewModel(){
 
     private val _every10thChar = MutableStateFlow<List<Char>>(emptyList())
@@ -31,7 +33,7 @@ class CompassChallengeViewModel @Inject constructor(
 
 
     fun fetchData() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcherIo) {
             _fetchingState.value = true
             val contentDeferred1 = async { compassRepository.getContent().firstOrNull { it.isSuccess }?.getOrNull() }
             val contentDeferred2 = async { compassRepository.getContent().firstOrNull { it.isSuccess }?.getOrNull() }

@@ -10,6 +10,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
@@ -36,6 +38,12 @@ object AppModule {
             CompassDatabase::class.java,
             CompassDatabase.DATABASE_NAME
         ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesDispatcherIO():CoroutineDispatcher{
+        return Dispatchers.IO
     }
 
     @Provides
